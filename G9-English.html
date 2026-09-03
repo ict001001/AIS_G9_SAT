@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade 12 Math — Semester 1 Journey</title>
+
+<!-- Preconnect to external font origins -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --navy:#101A33;
+    --navy-deep:#0A1226;
+    --paper:#FBF7EE;
+    --paper-dim:#F1EAD9;
+    --ink:#1B2438;
+    --slate:#5B6B8C;
+    --gold:#E3A94D;
+    --coral:#D9694F;   
+    --teal:#4FA69A;    
+    --violet:#8B6FC9;  
+    --crimson:#B23A48; 
+    --grey:#8A93A6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--navy);
+    color:var(--paper);
+    font-family:'Public Sans', sans-serif;
+    line-height:1.5;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces', serif;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:inherit;}
+
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    z-index: 1000;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:64px 6vw 24px;
+    background:radial-gradient(ellipse at top left, #17244A 0%, var(--navy) 55%);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:12.5px;
+    color:var(--gold);
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:clamp(32px,5vw,56px);
+    font-weight:700;
+    margin:0 0 14px;
+    max-width:14ch;
+    color:#fff;
+  }
+  .hero p{
+    max-width:60ch;
+    color:#C7CEDE;
+    font-size:17px;
+    margin:0 0 8px;
+  }
+  .hero .sub-note{
+    font-size:14px;
+    color:var(--grey);
+  }
+
+  /* ---------- CURVE NAV ---------- */
+  .curve-section{
+    padding:8px 4vw 40px;
+    background:var(--navy);
+    overflow-x:auto;
+  }
+  .curve-caption{
+    font-size:13px;
+    color:var(--grey);
+    padding:0 2vw 6px;
+    max-width:70ch;
+  }
+  .curve-svg-wrap{
+    min-width:1400px;
+    position:relative;
+  }
+  .curve-svg-wrap svg{width:100%;height:auto;display:block;}
+  .node{cursor:pointer;}
+  .node circle{transition:r .15s ease, filter .15s ease;}
+  .node:hover circle{filter:brightness(1.3);}
+  .node text{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    fill:#8892A8;
+  }
+  .node.active circle{stroke:#fff;stroke-width:2px;}
+
+  /* ---------- ASSESSMENT SUMMARY ---------- */
+  .assess-section{
+    padding:48px 6vw 24px;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  .assess-section h2{font-size:26px;margin:0 0 6px;}
+  .assess-section > p{color:var(--slate);max-width:60ch;margin:0 0 28px;font-size:15px;}
+  .assess-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:16px;
+  }
+  .assess-card{
+    background:var(--paper-dim);
+    border-radius:10px;
+    padding:20px;
+    border-left:5px solid var(--gold);
+  }
+  .assess-card.midterm{border-left-color:var(--coral);}
+  .assess-card.pba{border-left-color:var(--violet);}
+  .assess-card.quiz{border-left-color:var(--teal);}
+  .assess-card.final{border-left-color:var(--crimson);}
+  .assess-card .label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--slate);
+  }
+  .assess-card h3{margin:6px 0 8px;font-size:20px;}
+  .assess-card p.desc{margin:8px 0 0;font-size:14px;color:var(--slate);}
+
+  /* ---------- FILTERS ---------- */
+  .filter-bar{
+    padding:20px 6vw 0;
+    background:var(--paper);
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .filter-btn{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    border:1px solid #D8CFB9;
+    background:#fff;
+    color:var(--ink);
+    padding:8px 14px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .filter-btn:hover{border-color:var(--ink);}
+  .filter-btn.active{
+    background:var(--ink);
+    color:var(--paper);
+    border-color:var(--ink);
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline-section{
+    background:var(--paper);
+    padding:24px 6vw 64px;
+  }
+  .week-card{
+    background:#fff;
+    border:1px solid #EAE2CC;
+    border-radius:10px;
+    margin-bottom:12px;
+    overflow:hidden;
+    transition:box-shadow .15s ease;
+  }
+  .week-card.hidden{display:none;}
+  .week-card summary{
+    list-style:none;
+    cursor:pointer;
+    padding:16px 20px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .week-card summary::-webkit-details-marker{display:none;}
+  .week-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:#fff;
+    background:var(--ink);
+    border-radius:6px;
+    padding:4px 8px;
+    min-width:44px;
+    text-align:center;
+    flex-shrink:0;
+  }
+  .week-meta{flex:1;min-width:0;}
+  .week-date{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    color:var(--slate);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  .week-title{
+    font-size:17px;
+    font-weight:600;
+    color:var(--ink);
+    font-family:'Fraunces',serif;
+  }
+  .week-unit{font-size:12.5px;color:var(--slate);}
+  .badge{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:999px;
+    color:#fff;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .badge.midterm{background:var(--coral);}
+  .badge.pba{background:var(--violet);}
+  .badge.quiz{background:var(--teal);}
+  .badge.final{background:var(--crimson);}
+  .badge.break{background:var(--grey);}
+  .badge.revision{background:var(--gold);color:var(--ink);}
+  .chev{color:var(--slate);transition:transform .15s ease;flex-shrink:0;}
+  details[open] .chev{transform:rotate(90deg);}
+  .week-body{
+    padding:4px 20px 24px 80px;
+    border-top:1px solid #F1EAD9;
+  }
+  .week-body ul{
+    margin:16px 0 0;
+    padding-left:20px;
+    color:var(--ink);
+    font-size:16px;
+    line-height:1.6;
+  }
+  .week-body ul li{margin-bottom:2px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--navy-deep);
+    color:var(--grey);
+    padding:32px 6vw;
+    font-size:13px;
+  }
+  footer strong{color:var(--paper);}
+
+  @media (max-width:640px){
+    .week-body{padding-left:20px;}
+    .week-num{display:none;}
+  }
+</style>
+
+<!-- Third party analytics scripts loaded asynchronously -->
+</head>
+<body>
+
+<div class="sticky-header">
+    <center>
+      <h2>
+        <a href="#" class="logo">Grade9-SAT</a> · 
+        <a href="G9-English.html" style="color: yellow;">English</a> - 
+        <a href="G9-Biology.htm"  >Biology</a> -
+        <a href="G9-Chemistry.htm">Chemistry</a> -
+        <a href="G9-Physics.htm">Physics</a> -
+        <a href="G9-Math.html"  > Math</a> - 
+        <a href="index.html" >Arabic</a>
+      </h2>
+
+    </center>    
+</div>
+
+<header class="hero">
+  <div class="eyebrow">Grade 9 · US English · Semester 1 · 2026–2027</div>
+  <h1>Grade 9 US English — Semester 1 Learning Journey</h1>
+  <p>Follow the semester week by week through literature, vocabulary, grammar, and writing. Key checkpoints include National Day, the midterm, quiz week, Autumn Break, and revision.</p>
+  <p class="sub-note">Tap any point on the curve — or any week below — to open the details.</p>
+</header>
+<section class="curve-section"><div class="curve-caption">The semester journey — click a point to jump to that week.</div><div class="curve-svg-wrap"><svg id="curveSvg" viewBox="0 0 1400 190" xmlns="http://www.w3.org/2000/svg"></svg></div></section>
+<section class="assess-section">
+  <h2>Semester checkpoints</h2>
+  <p>Important dates and review points across Grade 9 US English.</p>
+  <div class="assess-grid">
+    <div class="assess-card midterm"><div class="label">Checkpoint</div><h3>Midterm Week</h3><div class="weeks midterm-c">Week 7 · Oct 4–8</div><p class="desc">Midterm week alongside Unit 1 literature, vocabulary, grammar, and literary analysis.</p></div>
+    <div class="assess-card quiz"><div class="label">Checkpoint</div><h3>Quiz Week</h3><div class="weeks quiz-c">Week 13 · Nov 15–19</div><p class="desc">Quiz week during Unit 2 work and poetry writing.</p></div>
+    <div class="assess-card revision"><div class="label">Checkpoint</div><h3>Revision Week</h3><div class="weeks" style="color:var(--gold)">Week 18 · Dec 20–24</div><p class="desc">Review of Semester 1 content.</p></div>
+    <div class="assess-card"><div class="label">Calendar</div><h3>National Day</h3><div class="weeks">Week 5 · Sep 20–23</div><p class="desc">National Day period — two days off.</p></div>
+    <div class="assess-card"><div class="label">Break</div><h3>Autumn Break</h3><div class="weeks">Week 14 · Nov 22–26</div><p class="desc">Week off.</p></div>
+  </div>
+</section>
+<div class="filter-bar" id="filterBar"></div><section class="timeline-section"><div id="timeline"></div></section>
+<footer>
+  <p><strong>Quick key:</strong> colored markers highlight the midterm, quiz week, breaks, and revision.</p>
+  <p style="margin-top:12px;">Grade 9 US English · Semester 1 · 2026–2027</p>
+</footer>
+<script>
+const weeks=[{"n": 1, "date": "Aug 23, 2026", "unit": "Grammar Unit 1 · Vocabulary Unit 1", "title": "Sentence Types & Fragments", "topics": ["Grammar Unit 1: Subjects, Predicates and Sentences", "1.1 Kinds of Sentences: Declarative and Interrogative", "1.2 Kinds of Sentences: Exclamatory and Imperative", "1.3 Sentence Fragments", "Vocabulary: Unit 1"], "isBreak": false, "isFinal": false}, {"n": 2, "date": "Aug 30, 2026", "unit": "Grammar Unit 1 · Vocabulary Unit 1 · Literature Unit 1", "title": "The Tell-Tale Heart", "topics": ["Grammar 1.4: Subjects and Predicates — Simple and Complete", "Grammar 1.5: Subjects and Predicates — Compound", "Vocabulary: Unit 1", "Literature Unit 1: The Tell-Tale Heart", "Writing — Descriptive Writing: Describing a Place/Person (Plan)"], "isBreak": false, "isFinal": false}, {"n": 3, "date": "Sep 6, 2026", "unit": "Grammar Unit 1 · Vocabulary Unit 2 · Literature Unit 1", "title": "The Tell-Tale Heart — Continued", "topics": ["Grammar 1.6: Simple and Compound Sentences", "Vocabulary: Unit 2", "Literature Unit 1: The Tell-Tale Heart", "Writing — Descriptive Writing: Describing a Place/Person (Draft)"], "isBreak": false, "isFinal": false}, {"n": 4, "date": "Jul 26, 2026", "unit": "Grammar Unit 2 · Vocabulary Unit 2 · Literature Unit 1", "title": "Ten Days in a Mad-House", "topics": ["Grammar Unit 2: Nouns", "2.7 Proper and Common Nouns", "2.8 Concrete and Abstract Nouns", "Vocabulary: Unit 2", "Literature Unit 1: Ten Days in a Mad-House", "Writing — Descriptive Writing: Describing a Place/Person (Revise and Publish)"], "isBreak": false, "isFinal": false}, {"n": 5, "date": "Sep 20, 2026 · Saudi National Day 23 & 24", "unit": "Grammar Unit 2 · Vocabulary Unit 3 · Literature Unit 1", "title": "Ten Days in a Mad-House — Continued", "topics": ["Grammar 2.9: Nouns — Compounds, Plural and Possessives", "Vocabulary: Unit 3", "Literature Unit 1: Ten Days in a Mad-House", "Saudi National Day: 23 & 24"], "isBreak": false, "isFinal": false}, {"n": 6, "date": "Sep 27, 2026", "unit": "Grammar Unit 2 · Vocabulary Unit 3 · Literature Unit 1", "title": "Sympathy", "topics": ["Grammar 2.10: Nouns — Collective", "Grammar 2.11: Distinguishing Plurals, Possessives and Contractions", "Vocabulary: Unit 3", "Literature Unit 1: Sympathy (poem)", "Writing — Poetry: Writing a Poem (Plan and Draft)"], "isBreak": false, "isFinal": false}, {"n": 7, "date": "Oct 4, 2026", "unit": "Grammar Unit 2 · Vocabulary Unit 4 · Literature Unit 2", "title": "The Road Not Taken", "topics": ["Grammar 2.12: Appositives", "Vocabulary: Unit 4", "Literature Unit 2: Road Not Taken (Poem)", "Writing — Poetry: Writing a Poem (Revise and Publish)"], "isBreak": false, "isFinal": false}, {"n": 8, "date": "Oct 11, 2026", "unit": "Grammar Unit 3 · Vocabulary Unit 4 · Literature Unit 2", "title": "The Road Not Taken & Oral Presentation", "topics": ["Grammar Unit 3: Verbs", "3.13 Action Verbs", "3.14 Transitive and Intransitive", "Vocabulary: Unit 4", "Literature Unit 2: Road Not Taken (Poem)", "Writing — Oral Group Discussion: Oral Presentation on “I Am My Own Country” (Autobiography)"], "isBreak": false, "isFinal": false}, {"n": 9, "date": "Oct 18, 2026", "unit": "Grammar Unit 3 · Vocabulary Unit 5 · Literature Unit 2", "title": "So Where Are You From?", "topics": ["Grammar 3.15: Verbs with Indirect Objects", "Grammar 3.16: Linking Verbs and Predicate Words", "Vocabulary: Unit 5", "Literature Unit 2: So where are you from?", "Writing — Oral Group Discussion (Plan)"], "isBreak": false, "isFinal": false}, {"n": 10, "date": "Oct 25, 2026", "unit": "Grammar Unit 3 · Vocabulary Unit 5 · Literature Unit 2", "title": "So Where Are You From? — Continued", "topics": ["Grammar 3.17: Present and Past Tenses", "Grammar 3.18: Main Verbs and Helping Verbs", "Vocabulary: Unit 5", "Literature Unit 2: So where are you from?", "Writing — Oral Group Discussion (Present)"], "isBreak": false, "isFinal": false}, {"n": 11, "date": "Nov 1, 2026", "unit": "Grammar Unit 3 · Vocabulary Unit 6 · Literature Unit 2", "title": "Commencement Address to the Santa Fe Indian School", "topics": ["Grammar 3.19: Verb Forms — Present Progressive and Past Progressive", "Vocabulary: Unit 6", "Literature Unit 2: Commencment Address to the Santa Fe Indian School", "Writing — Narrative: Personal Narrative (Plan)"], "isBreak": false, "isFinal": false}, {"n": 12, "date": "Nov 8, 2026", "unit": "Grammar Unit 3 · Vocabulary Unit 6 · Literature Unit 2", "title": "Commencement Address — Continued", "topics": ["Grammar 3.20: Perfect Tenses — Present and Past", "Grammar 3.21: Expressing Future Time", "Vocabulary: Unit 6", "Literature Unit 2: Commencment Address to the Santa Fe Indian School", "Writing — Narrative: Personal Narrative (Draft)"], "isBreak": false, "isFinal": false}, {"n": 13, "date": "Nov 15, 2026", "unit": "Grammar Unit 3 · Literature Unit 2", "title": "You Gotta Beat the Best to Be the Best", "topics": ["Grammar 3.22: Active and Passive Voice", "Literature Unit 2: You Gotta Beat the Best to Be the Best", "Writing — Narratives: Personal Narrative (Revise and Publish)"], "isBreak": false, "isFinal": false}, {"n": 14, "date": "Nov 22, 2026", "unit": "Break · Autumn Break", "title": "Autumn Break", "topics": ["Autumn Break"], "isBreak": true, "isFinal": false}, {"n": 15, "date": "Nov 29, 2026", "unit": "Grammar Unit 3 · Vocabulary Unit 7 · Literature Unit 2", "title": "You Gotta Beat the Best to Be the Best — Continued", "topics": ["Grammar 3.23: Irregular Vebs I", "Grammar 3.24: Irregular Verbs II", "Vocabulary: Unit 7", "Literature Unit 2: You Gotta Beat the Best to Be the Best", "Writing — Informative Essay (Plan)"], "isBreak": false, "isFinal": false}, {"n": 16, "date": "Dec 6, 2026", "unit": "Grammar Unit 4 · Vocabulary Unit 7 · Literature Unit 3", "title": "The History of the Space Shuttle", "topics": ["Grammar Unit 4: Pronouns", "4.25 Pronouns: Personal", "4.26 Pronouns and Antecedents", "Vocabulary: Unit 7", "Literature Unit 3: The History of the Space Shuttle", "Writing — Informative Essay (Draft)"], "isBreak": false, "isFinal": false}, {"n": 17, "date": "Dec 13, 2026", "unit": "Grammar Unit 4 · Literature Unit 3", "title": "The History of the Space Shuttle — Continued", "topics": ["Grammar 4.27: Using Pronouns Correctly", "Grammar 4.28: Possessive and Indefinite Pronouns", "Literature Unit 3: The History of the Space Shuttle", "Writing — Informative Essay (Revise and Publish)"], "isBreak": false, "isFinal": false}, {"n": 18, "date": "Jul 26, 2026", "unit": "Revision Week", "title": "Revision Week", "topics": ["Revision Week"], "isBreak": false, "isFinal": false}, {"n": 19, "date": "Week 19", "unit": "Final Exams", "title": "Final Exams", "topics": ["Final Exams"], "isBreak": false, "isFinal": true}, {"n": 20, "date": "Week 20", "unit": "Final Exams", "title": "Final Exams — Continued", "topics": ["Final Exams"], "isBreak": false, "isFinal": true}];
+function unitKey(unit){if(unit.includes("Literature Unit 1"))return "Unit 1";if(unit.includes("Literature Unit 2"))return "Unit 2";if(unit.includes("Literature Unit 3"))return "Unit 3";if(unit.includes("Final"))return "Final";if(unit.includes("Revision"))return "Revision";if(unit.includes("Break"))return "Break";return "Other";}
+function renderTimeline(filter){const el=document.getElementById('timeline');el.innerHTML=weeks.map(w=>{const uk=unitKey(w.unit);const show=filter==='all'||uk===filter;let badge=w.isBreak?'<span class="badge break">Break</span>':w.isFinal?'<span class="badge final">Final Exams</span>':'';return `<details class="week-card ${show?'':'hidden'}" data-week="${w.n}"><summary><div class="week-num mono">W${w.n}</div><div class="week-meta"><div class="week-date">${w.date}</div><div class="week-title">${w.title}</div><div class="week-unit">${w.unit}</div></div>${badge}<div class="chev">▶</div></summary><div class="week-body"><ul>${w.topics.map(t=>`<li>${t}</li>`).join('')}</ul></div></details>`;}).join('');}
+function renderFilters(){const opts=[["all","All Weeks"],["Unit 1","Literature Unit 1"],["Unit 2","Literature Unit 2"],["Unit 3","Literature Unit 3"],["Break","Autumn Break"],["Revision","Revision Week"],["Final","Final Exams"]];const bar=document.getElementById('filterBar');bar.innerHTML=opts.map((o,i)=>`<button class="filter-btn ${i===0?'active':''}" data-key="${o[0]}">${o[1]}</button>`).join('');bar.querySelectorAll('.filter-btn').forEach(btn=>btn.onclick=()=>{bar.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderTimeline(btn.dataset.key);});}
+function color(w){let k=unitKey(w.unit);return k==='Unit 1'?'#E3A94D':k==='Unit 2'?'#4FA69A':k==='Unit 3'?'#8B6FC9':k==='Revision'?'#E3A94D':k==='Final'?'#B23A48':'#8A93A6';}
+function buildCurve(){const svg=document.getElementById('curveSvg'),n=weeks.length,w=1400,marginX=40,marginY=46,amp=42;let path='',pts=[];for(let i=0;i<n;i++){let x=marginX+(i/(n-1))*(w-marginX*2),y=marginY+amp*Math.sin((i/(n-1))*Math.PI*2.4)+amp*.4;pts.push({x,y});path+=(i?' L ':'M ')+x+' '+y;}let s=`<path d="${path}" fill="none" stroke="#2A3B66" stroke-width="2.5"/>`;weeks.forEach((wk,i)=>{let p=pts[i],r=(wk.isBreak||wk.isFinal)?8:5;s+=`<g class="node" data-week="${wk.n}" transform="translate(${p.x},${p.y})"><circle r="${r}" fill="${color(wk)}"/><text x="0" y="${p.y>95?-16:24}" text-anchor="middle">W${wk.n}</text></g>`;});svg.innerHTML=s;svg.querySelectorAll('.node').forEach(node=>node.onclick=()=>{document.querySelector('.filter-btn[data-key="all"]').click();let c=document.querySelector(`.week-card[data-week="${node.dataset.week}"]`);if(c){c.open=true;c.scrollIntoView({behavior:'smooth',block:'center'});}});}
+renderFilters();renderTimeline('all');buildCurve();
+</script>
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade 12 Math — Semester 1 Journey</title>
+
+<!-- Preconnect to external font origins -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --navy:#101A33;
+    --navy-deep:#0A1226;
+    --paper:#FBF7EE;
+    --paper-dim:#F1EAD9;
+    --ink:#1B2438;
+    --slate:#5B6B8C;
+    --gold:#E3A94D;
+    --coral:#D9694F;   
+    --teal:#4FA69A;    
+    --violet:#8B6FC9;  
+    --crimson:#B23A48; 
+    --grey:#8A93A6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--navy);
+    color:var(--paper);
+    font-family:'Public Sans', sans-serif;
+    line-height:1.5;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces', serif;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:inherit;}
+
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    z-index: 1000;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:64px 6vw 24px;
+    background:radial-gradient(ellipse at top left, #17244A 0%, var(--navy) 55%);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:12.5px;
+    color:var(--gold);
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:clamp(32px,5vw,56px);
+    font-weight:700;
+    margin:0 0 14px;
+    max-width:14ch;
+    color:#fff;
+  }
+  .hero p{
+    max-width:60ch;
+    color:#C7CEDE;
+    font-size:17px;
+    margin:0 0 8px;
+  }
+  .hero .sub-note{
+    font-size:14px;
+    color:var(--grey);
+  }
+
+  /* ---------- CURVE NAV ---------- */
+  .curve-section{
+    padding:8px 4vw 40px;
+    background:var(--navy);
+    overflow-x:auto;
+  }
+  .curve-caption{
+    font-size:13px;
+    color:var(--grey);
+    padding:0 2vw 6px;
+    max-width:70ch;
+  }
+  .curve-svg-wrap{
+    min-width:1400px;
+    position:relative;
+  }
+  .curve-svg-wrap svg{width:100%;height:auto;display:block;}
+  .node{cursor:pointer;}
+  .node circle{transition:r .15s ease, filter .15s ease;}
+  .node:hover circle{filter:brightness(1.3);}
+  .node text{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    fill:#8892A8;
+  }
+  .node.active circle{stroke:#fff;stroke-width:2px;}
+
+  /* ---------- ASSESSMENT SUMMARY ---------- */
+  .assess-section{
+    padding:48px 6vw 24px;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  .assess-section h2{font-size:26px;margin:0 0 6px;}
+  .assess-section > p{color:var(--slate);max-width:60ch;margin:0 0 28px;font-size:15px;}
+  .assess-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:16px;
+  }
+  .assess-card{
+    background:var(--paper-dim);
+    border-radius:10px;
+    padding:20px;
+    border-left:5px solid var(--gold);
+  }
+  .assess-card.midterm{border-left-color:var(--coral);}
+  .assess-card.pba{border-left-color:var(--violet);}
+  .assess-card.quiz{border-left-color:var(--teal);}
+  .assess-card.final{border-left-color:var(--crimson);}
+  .assess-card .label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--slate);
+  }
+  .assess-card h3{margin:6px 0 8px;font-size:20px;}
+  .assess-card p.desc{margin:8px 0 0;font-size:14px;color:var(--slate);}
+
+  /* ---------- FILTERS ---------- */
+  .filter-bar{
+    padding:20px 6vw 0;
+    background:var(--paper);
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .filter-btn{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    border:1px solid #D8CFB9;
+    background:#fff;
+    color:var(--ink);
+    padding:8px 14px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .filter-btn:hover{border-color:var(--ink);}
+  .filter-btn.active{
+    background:var(--ink);
+    color:var(--paper);
+    border-color:var(--ink);
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline-section{
+    background:var(--paper);
+    padding:24px 6vw 64px;
+  }
+  .week-card{
+    background:#fff;
+    border:1px solid #EAE2CC;
+    border-radius:10px;
+    margin-bottom:12px;
+    overflow:hidden;
+    transition:box-shadow .15s ease;
+  }
+  .week-card.hidden{display:none;}
+  .week-card summary{
+    list-style:none;
+    cursor:pointer;
+    padding:16px 20px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .week-card summary::-webkit-details-marker{display:none;}
+  .week-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:#fff;
+    background:var(--ink);
+    border-radius:6px;
+    padding:4px 8px;
+    min-width:44px;
+    text-align:center;
+    flex-shrink:0;
+  }
+  .week-meta{flex:1;min-width:0;}
+  .week-date{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    color:var(--slate);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  .week-title{
+    font-size:17px;
+    font-weight:600;
+    color:var(--ink);
+    font-family:'Fraunces',serif;
+  }
+  .week-unit{font-size:12.5px;color:var(--slate);}
+  .badge{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:999px;
+    color:#fff;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .badge.midterm{background:var(--coral);}
+  .badge.pba{background:var(--violet);}
+  .badge.quiz{background:var(--teal);}
+  .badge.final{background:var(--crimson);}
+  .badge.break{background:var(--grey);}
+  .badge.revision{background:var(--gold);color:var(--ink);}
+  .chev{color:var(--slate);transition:transform .15s ease;flex-shrink:0;}
+  details[open] .chev{transform:rotate(90deg);}
+  .week-body{
+    padding:4px 20px 24px 80px;
+    border-top:1px solid #F1EAD9;
+  }
+  .week-body ul{
+    margin:16px 0 0;
+    padding-left:20px;
+    color:var(--ink);
+    font-size:16px;
+    line-height:1.6;
+  }
+  .week-body ul li{margin-bottom:2px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--navy-deep);
+    color:var(--grey);
+    padding:32px 6vw;
+    font-size:13px;
+  }
+  footer strong{color:var(--paper);}
+
+  @media (max-width:640px){
+    .week-body{padding-left:20px;}
+    .week-num{display:none;}
+  }
+</style>
+
+<!-- Third party analytics scripts loaded asynchronously -->
+</head>
+<body>
+
+<div class="sticky-header">
+    <center>
+      <h2>
+        <a href="#" class="logo">Grade9-SAT</a> · 
+        <a href="G9-English.html">English</a> - 
+        <a href="G9-Biology.htm" >Biology</a> -
+        <a href="G9-Chemistry.htm">Chemistry</a> -
+        <a href="G9-Physics.htm">Physics</a> -
+        <a href="G9-Math.html" style="color: yellow;"  > Math</a> - 
+        <a href="index.html" >Arabic</a>
+      </h2>
+
+    </center>    
+</div>
+
+
+<header class="hero">
+  <div class="eyebrow">Grade 9 · US Math (Algebra 1) · Semester 1 · 2026–2027</div>
+  <h1>From expressions and equations to functions, inequalities, and systems of equations.</h1>
+  <p>Your child builds from evaluating expressions and solving equations, into representing and graphing functions, then writing linear equations, solving inequalities, and finally graphing systems of equations — the core of Algebra 1. The colored points mark check-in weeks: the Mid-Term Test, the Quarter 2 quiz, and Semester 1 Exams.</p>
+  <p class="sub-note">Tap any point on the path — or any week below — to open the details.</p>
+</header>
+
+<section class="curve-section">
+  <div class="curve-caption">The semester as a timeline — click a point to jump to that week.</div>
+  <div class="curve-svg-wrap">
+    <svg id="curveSvg" viewBox="0 0 1400 190" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+</section>
+
+<section class="assess-section">
+  <h2>How your child will be assessed</h2>
+  <p>These are the graded checkpoints this semester. Here's when each one lands.</p>
+  <div class="assess-grid">
+    <div class="assess-card pba">
+      <div class="label">Checkpoint</div>
+      <h3>PBL — Math</h3>
+      <div class="weeks pba-c">Week 7 · Oct 4</div>
+      <p class="desc">School-wide Project-Based Learning week for Math.</p>
+    </div>
+    <div class="assess-card midterm">
+      <div class="label">Checkpoint</div>
+      <h3>Mid-Term 1 Test</h3>
+      <div class="weeks midterm-c">Weeks 8–9 · Oct 11–18</div>
+      <p class="desc">Covers Weeks 1–7: expressions, equations in one variable, and relations & functions.</p>
+    </div>
+    <div class="assess-card quiz">
+      <div class="label">Checkpoint</div>
+      <h3>Quiz I — Quarter 2</h3>
+      <div class="weeks quiz-c">Week 16 · Dec 6</div>
+      <p class="desc">School-wide Quarter 2 quiz for Arabic, English, Math, and Science.</p>
+    </div>
+    <div class="assess-card revision">
+      <div class="label">Checkpoint</div>
+      <h3>Revision Week</h3>
+      <div class="weeks" style="color:var(--gold)">Week 18 · Dec 20</div>
+      <p class="desc">Cumulative review across all seven modules before final exams.</p>
+    </div>
+    <div class="assess-card final">
+      <div class="label">Checkpoint</div>
+      <h3>Semester 1 Exams</h3>
+      <div class="weeks final-c">Weeks 19–20 · Dec 31 – Jan 7</div>
+      <p class="desc">Cumulative exam covering Weeks 1–18.</p>
+    </div>
+  </div>
+</section>
+
+<section class="assess-section" style="padding-top:8px;">
+  <h2 style="font-size:20px;">Other key dates this semester</h2>
+  <p style="margin-bottom:16px;">Not graded, but good to have on the family calendar.</p>
+  <ul style="margin:0;padding-left:20px;font-size:14.5px;color:var(--ink);line-height:1.9;">
+    <li><b>Aug 23</b> — Grades 9–12 return; Parents' Induction Webinar Aug 27</li>
+    <li><b>Aug 30</b> — Meet & Greet</li>
+    <li><b>Sep 6</b> — Baseline Test (Grade 9 SAT)</li>
+    <li><b>Sep 13</b> — Project-Based Learning — Arabic</li>
+    <li><b>Sep 20</b> — Award Ceremony for Academic Achievement</li>
+    <li><b>Sep 23–24</b> — National Day holiday — no classes</li>
+    <li><b>Sep 27</b> — Project-Based Learning — English</li>
+    <li><b>Oct 4</b> — Project-Based Learning — Math</li>
+    <li><b>Oct 11</b> — Project-Based Learning — Science</li>
+    <li><b>Oct 18</b> — End of Quarter 1</li>
+    <li><b>Oct 25</b> — Monthly Assessment Test (GAT/SAT/SAAT)</li>
+    <li><b>Oct 29</b> — Report cards issued</li>
+    <li><b>Nov 4–5</b> — Parent–Teacher Conference</li>
+    <li><b>Nov 22–26</b> — Autumn Break</li>
+    <li><b>Dec 13</b> — Monthly Assessment Test (GAT/SAT/SAAT)</li>
+    <li><b>Dec 31, 2026 – Jan 7, 2027</b> — Semester 1 Exams</li>
+    <li><b>Jan 10</b> — Mid-Year Break</li>
+    <li><b>Jan 17</b> — Semester 2 begins</li>
+  </ul>
+</section>
+
+<div class="filter-bar" id="filterBar"></div>
+
+<section class="timeline-section">
+  <div id="timeline"></div>
+</section>
+
+<footer>
+  <p><strong>Quick key:</strong> Module 1 Expressions, Module 2 Equations in One Variable, Module 3 Relations & Functions, Module 4 Linear & Nonlinear Functions, Module 5 Writing Linear Equations, Module 6 Inequalities, Module 7 Systems of Equations & Inequalities — grey marks breaks. Larger dots on the curve mark assessment weeks.</p>
+  <p style="margin-top:12px;">Questions about any unit? Reach out to your child's computer teacher anytime.</p>
+</footer>
+
+<script>
+const UNIT_COLORS = {"Module 1": "#E3A94D", "Module 2": "#4FA69A", "Module 3": "#8B6FC9", "Module 4": "#D9694F", "Module 5": "#5B8FD9", "Module 6": "#C97FB0", "Module 7": "#7FB069", "Break": "#8A93A6", "Revision": "#E3A94D", "Final": "#B23A48"};
+
+function unitKey(unit){
+  const keys = Object.keys(UNIT_COLORS).filter(k => k!=="Break" && k!=="Revision" && k!=="Final");
+  for(const k of keys){ if(unit.includes(k)) return k; }
+  if(unit.includes("Final")) return "Final";
+  if(unit.includes("Revision")) return "Revision";
+  if(unit.includes("Break")) return "Break";
+  return keys[0];
+}
+
+const weeks = [{"n": 1, "date": "Aug 23", "unit": "Module 1 · Expressions", "title": "Orientation & Numerical/Algebraic Expressions", "topics": ["Orientation Day: routines and expectations for the year", "Evaluating numerical expressions using PEMDAS", "Algebraic expressions and properties of real numbers"], "why": "The year opens with a refresher on expressions — the language every Algebra 1 topic builds on.", "assessments": [], "event": "Welcome Back — Grades 9–12 begin Sunday, Aug 23. Parents' Induction Webinar, Thursday, Aug 27 (School Platform)."}, {"n": 2, "date": "Aug 30", "unit": "Module 2 · Equations in One Variable", "title": "Distributive Property & Writing Equations", "topics": ["Translating verbal phrases into algebraic expressions", "Applying the Distributive Property and properties of real numbers", "Writing and solving one-step equations"], "why": "Students learn to justify every algebraic step — not just get an answer, but explain why it's true.", "assessments": [], "event": "Meet & Greet this week."}, {"n": 3, "date": "Sep 6", "unit": "Module 2 · Equations in One Variable", "title": "Multi-Step Equations & Absolute Value", "topics": ["Using the Distributive Property to expand and factor expressions", "Solving multi-step equations and equations with the variable on both sides", "Evaluating absolute value as distance from zero"], "why": "Multi-step equations are where algebra starts to feel like real problem-solving.", "assessments": [], "event": "Baseline Test for Grade 9 (SAT)."}, {"n": 4, "date": "Sep 13", "unit": "Module 2 · Equations in One Variable", "title": "Proportions & Using Formulas", "topics": ["Writing equations that model real-world situations", "Solving proportions and using formulas (perimeter, area, volume)", "Distinguishing equations from expressions"], "why": "Formulas connect algebra directly to real measurement problems.", "assessments": [], "event": "Project-Based Learning — Arabic, school-wide."}, {"n": 5, "date": "Sep 20", "unit": "Module 3 · Relations & Functions", "title": "Representing Relations & Functions", "topics": ["Solving multi-step equations and equations with the variable on both sides", "Representing relations and identifying functions", "Applying the vertical line test"], "why": "This week introduces functions — one of the biggest ideas in all of Algebra 1.", "assessments": [], "event": "Award Ceremony for Academic Achievement. National Day holiday — no classes Sep 23 & 24."}, {"n": 6, "date": "Sep 27", "unit": "Module 3 · Relations & Functions", "title": "Linearity, Continuity & Intercepts", "topics": ["Solving absolute value equations", "Solving equations involving proportions", "Identifying linearity, continuity, and intercepts of graphs"], "why": "Graphs start telling the same stories equations do — just visually.", "assessments": [], "event": "Project-Based Learning — English, school-wide."}, {"n": 7, "date": "Oct 4", "unit": "Module 3 · Relations & Functions + PBL", "title": "Shapes of Graphs, Comparing Functions & Math PBL", "topics": ["Solving a formula for a specific variable", "Representing relations with graphs, ordered pairs, tables, and mappings", "Comparing the shapes of different graphs", "Project-Based Learning (PBL) — Math, school-wide this week"], "why": "Alongside this week's graphing work, students take part in the school's Math Project-Based Learning week.", "assessments": [{"type": "pba", "label": "PBL — Math"}], "event": "Project-Based Learning — Math, school-wide."}, {"n": 8, "date": "Oct 11", "unit": "Module 4 · Linear & Nonlinear Functions", "title": "Graphing Linear Functions & Slope", "topics": ["Determining whether a relation is a function and finding function values", "Distinguishing discrete vs. continuous functions", "Rate of change and slope as a measure of steepness"], "why": "Slope is one of the most-used ideas in the rest of the course — this week builds real fluency with it.", "assessments": [{"type": "midterm", "label": "Mid-Term 1"}], "event": "Project-Based Learning — Science, school-wide. Mid-Term 1 Test begins (Science, English, Math, Arabic) — covers Weeks 1–7."}, {"n": 9, "date": "Oct 18", "unit": "Module 4 · Linear & Nonlinear Functions", "title": "Slope-Intercept Form & Transformations", "topics": ["Interpreting x- and y-intercepts of a graph in context", "Identifying relative maxima, minima, and symmetry of graphs", "Writing equations in slope-intercept form"], "why": "Slope-intercept form is the most common way lines are written — mastering it pays off all year.", "assessments": [{"type": "midterm", "label": "Mid-Term 1"}], "event": "Mid-Term 1 Test continues. End of Quarter 1. (Quiz I for ISA/ISE, Computer, Electives & Social Studies this week — not Math.)"}, {"n": 10, "date": "Oct 25", "unit": "Module 4 · Linear & Nonlinear Functions", "title": "Arithmetic Sequences & Piecewise Functions", "topics": ["Comparing graphs across different function families", "Graphing linear functions from a table or its intercepts", "Recognizing arithmetic sequences"], "why": "Arithmetic sequences are a bridge between algebra and patterns students will see again in later math courses.", "assessments": [], "event": "Monthly Assessment Test for GAT, SAT, and SAAT. Report cards issued Oct 29."}, {"n": 11, "date": "Nov 1", "unit": "Module 5 · Writing Linear Equations", "title": "Slope as Rate of Change & Slope-Intercept Form", "topics": ["Calculating and interpreting slope as a rate of change", "Writing and graphing linear equations in slope-intercept form", "Graphing absolute value functions"], "why": "Now students flip the process — going from a real situation straight to an equation.", "assessments": [], "event": "Parent–Teacher Conference, Wednesday & Thursday."}, {"n": 12, "date": "Nov 8", "unit": "Module 5 · Writing Linear Equations", "title": "Standard & Point-Slope Forms", "topics": ["Describing and graphing translations and dilations of linear functions", "Constructing arithmetic sequences using the common difference", "Writing equations in standard and point-slope form"], "why": "Different forms of a line are useful in different situations — this week rounds out the toolkit.", "assessments": [], "event": null}, {"n": 13, "date": "Nov 15", "unit": "Module 6 · Inequalities", "title": "One-Step & Multi-Step Inequalities", "topics": ["Identifying the effect of transformations on an absolute value function's graph", "Writing a line's equation from its slope and a point", "Solving one-step and multi-step inequalities"], "why": "Inequalities work a lot like equations, with one key twist students need to watch for.", "assessments": [], "event": null}, {"n": 14, "date": "Nov 22–26", "unit": "Break · Autumn Break", "title": "Autumn Break", "topics": ["No classes all week"], "why": "A full week to rest and recharge.", "assessments": [{"type": "break", "label": "Break"}], "isBreak": true, "event": "Autumn Break — no classes."}, {"n": 15, "date": "Nov 29", "unit": "Module 6 · Inequalities", "title": "Compound & Absolute Value Inequalities", "topics": ["Determining whether lines are parallel or perpendicular using slope", "Finding and interpreting the inverse of a linear function", "Solving compound and absolute value inequalities"], "why": "Compound inequalities combine everything students know about inequalities into more complex statements.", "assessments": [], "event": "School resumes after Autumn Break."}, {"n": 16, "date": "Dec 6", "unit": "Module 7 · Systems of Equations & Inequalities", "title": "Graphing Inequalities in Two Variables", "topics": ["Comparing solving an inequality to solving an equation", "Solving inequalities that require several steps", "Graphing inequalities in two variables"], "why": "Graphing an inequality — not just an equation — introduces a whole shaded region of solutions.", "assessments": [{"type": "quiz", "label": "Quiz I — Quarter 2"}], "event": "Quiz I for Arabic, English, Math & Science — Quarter 2, this week."}, {"n": 17, "date": "Dec 13", "unit": "Module 7 · Systems of Equations & Inequalities", "title": "Graphing Systems & Substitution", "topics": ["Graphing a system of two linear equations", "Solving a system using substitution", "Interpreting the solution of a system as an intersection point"], "why": "A system of equations is where two separate lines' stories meet at exactly one point.", "assessments": [], "event": "Monthly Assessment Test for GAT, SAT, and SAAT."}, {"n": 18, "date": "Dec 20", "unit": "Revision", "title": "Revision Week — No New Content", "topics": ["Cumulative review connecting every module from the semester", "Targeted practice ahead of the final exam"], "why": "A dedicated week to revisit expressions, equations, functions, inequalities, and systems before exams.", "assessments": [{"type": "revision", "label": "Revision"}], "event": null}, {"n": 19, "date": "Dec 27", "unit": "Final Exams", "title": "Semester 1 Exams Begin", "topics": ["Semester 1 Exams begin — material from Weeks 1–18"], "why": "The cumulative assessment covering the full semester's Algebra 1 content.", "assessments": [{"type": "final", "label": "Semester 1 Exam"}], "event": "Semester 1 Exams begin Dec 31, 2026."}, {"n": 20, "date": "Jan 3", "unit": "Final Exams", "title": "Semester 1 Exams End", "topics": ["Semester 1 Exams conclude"], "why": "The end of a full semester of Grade 9 Math.", "assessments": [{"type": "final", "label": "Semester 1 Exam"}], "event": "Semester 1 Exams end Jan 7, 2027. Mid-Year Break begins Jan 10; Semester 2 starts Jan 17."}];
+
+function badgeHtml(list){
+  if(!list || !list.length) return "";
+  return list.map(a=>`<span class="badge ${a.type}">${a.label}</span>`).join('');
+}
+
+function renderTimeline(filter){
+  const el = document.getElementById('timeline');
+  el.innerHTML = weeks.map(w=>{
+    const uk = unitKey(w.unit);
+    const hasAssessment = w.assessments && w.assessments.some(a=>a.type!=='break');
+    const show = filter==='all' ? true :
+      (filter==='assessments' ? !!hasAssessment : uk===filter);
+    const eventBlock = w.event ? `<p class="school-event">${w.event}</p>` : "";
+    return `
+    <details class="week-card ${show?'':'hidden'}" data-week="${w.n}" data-unit="${uk}">
+      <summary>
+        <div class="week-num mono">W${w.n}</div>
+        <div class="week-meta">
+          <div class="week-date">${w.date}</div>
+          <div class="week-title">${w.title}</div>
+          <div class="week-unit">${w.unit}</div>
+        </div>
+        ${badgeHtml(w.assessments)}
+        <div class="chev">▶</div>
+      </summary>
+      <div class="week-body">
+        <ul>${w.topics.map(t=>`<li>${t}</li>`).join('')}</ul>
+        <p class="why">${w.why}</p>
+        ${eventBlock}
+      </div>
+    </details>`;
+  }).join('');
+}
+
+function renderFilters(){
+  const bar = document.getElementById('filterBar');
+  const options = [{"key": "all", "label": "All Weeks"}, {"key": "assessments", "label": "Assessments Only"}, {"key": "Module 1", "label": "Module 1 \u00b7 Expressions"}, {"key": "Module 2", "label": "Module 2 \u00b7 Equations in One Variable"}, {"key": "Module 3", "label": "Module 3 \u00b7 Relations & Functions"}, {"key": "Module 4", "label": "Module 4 \u00b7 Linear & Nonlinear Functions"}, {"key": "Module 5", "label": "Module 5 \u00b7 Writing Linear Equations"}, {"key": "Module 6", "label": "Module 6 \u00b7 Inequalities"}, {"key": "Module 7", "label": "Module 7 \u00b7 Systems of Equations & Inequalities"}];
+  bar.innerHTML = options.map((o,i)=>`<button class="filter-btn ${i===0?'active':''}" data-key="${o.key}">${o.label}</button>`).join('');
+  bar.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      bar.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTimeline(btn.dataset.key);
+    });
+  });
+}
+
+function assessColor(list){
+  if(!list || !list.length) return "#E3A94D";
+  const priority = ['final','midterm','quiz','pba','revision','break'];
+  const colors = {final:"#B23A48", midterm:"#D9694F", quiz:"#4FA69A", pba:"#8B6FC9", revision:"#E3A94D", break:"#8A93A6"};
+  for(const p of priority){ if(list.some(a=>a.type===p)) return colors[p]; }
+  return "#E3A94D";
+}
+
+function buildCurve(){
+  const svg = document.getElementById('curveSvg');
+  const n = weeks.length;
+  const w = 1400, h = 190;
+  const marginX = 40, marginY = 46;
+  const amp = 42;
+  let pathD = "";
+  const pts = [];
+  for(let i=0;i<n;i++){
+    const x = marginX + (i/(n-1)) * (w - marginX*2);
+    const y = marginY + amp * Math.sin((i/(n-1)) * Math.PI * 2.4) + amp*0.4;
+    pts.push({x,y});
+    pathD += (i===0?`M ${x} ${y}`:` L ${x} ${y}`);
+  }
+  let svgContent = `<path d="${pathD}" fill="none" stroke="#2A3B66" stroke-width="2.5"/>`;
+
+  weeks.forEach((wk,i)=>{
+    const {x,y} = pts[i];
+    const isBreak = wk.isBreak;
+    const hasAssessment = wk.assessments && wk.assessments.some(a=>a.type!=='break');
+    const color = isBreak ? "#4A5578" : assessColor(wk.assessments);
+    const r = (hasAssessment && !isBreak) ? 9 : (isBreak ? 6 : 5);
+    svgContent += `
+      <g class="node" data-week="${wk.n}" transform="translate(${x},${y})">
+        <circle r="${r}" fill="${color}" ${isBreak ? 'stroke="#4A5578" stroke-dasharray="2,2" fill-opacity="0.3"' : ''}/>
+        <text x="0" y="${(y > 95 ? -16 : 24)}" text-anchor="middle">W${wk.n}</text>
+      </g>`;
+  });
+
+  const todayX = pts[0].x + (pts[1].x - pts[0].x) * 0.35;
+  const todayY = pts[0].y + (pts[1].y - pts[0].y) * 0.35 - 34;
+  svgContent += `
+    <g>
+      <line x1="${todayX}" y1="${todayY+8}" x2="${todayX}" y2="${todayY+34}" stroke="#E3A94D" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text class="today-flag" x="${todayX}" y="${todayY}" text-anchor="middle">◆ TODAY</text>
+    </g>`;
+
+  svg.innerHTML = svgContent;
+
+  svg.querySelectorAll('.node').forEach(node=>{
+    node.addEventListener('click', ()=>{
+      const weekNum = node.dataset.week;
+      const filterAll = document.querySelector('.filter-btn[data-key="all"]');
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      if(filterAll) filterAll.classList.add('active');
+      renderTimeline('all');
+      const card = document.querySelector(`.week-card[data-week="${weekNum}"]`);
+      if(card){
+        card.open = true;
+        card.scrollIntoView({behavior:'smooth', block:'center'});
+        card.style.boxShadow = "0 0 0 2px #E3A94D";
+        setTimeout(()=>{ card.style.boxShadow = "none"; }, 1400);
+      }
+    });
+  });
+}
+
+renderFilters();
+renderTimeline('all');
+buildCurve();
+</script>
+
+</body>
+</html>
